@@ -6,11 +6,12 @@ This repository contains scripts to automate the sharing of screenshots from a l
 
 ### notify_screenshot.sh
 
-This script utilizes inotify to watch for new files created in the specified directory (`/home/${USER}/Pictures/Screenshots`). When a new file is created, it triggers the `sync_screenshot.sh` script to sync the screenshot to the remote server.
+This script utilizes inotify to watch for new files created in the specified directory (`/home/${USER}/Pictures/Screenshots`). When a new file is created, it triggers the `copy_to_server` function which copies the file to the remote server and copies the URL to the clipboard using `xclip`. It can be run in the background by executing the following command:
 
-### sync_screenshot.sh
-
-Responsible for syncing the most recent screenshot from the local directory to a remote server. It retrieves the latest screenshot, syncs it via `rsync` over SSH to the specified remote server path, and generates a URL for the image hosted on the remote server. The URL is then copied to the clipboard for easy access.
+```bash
+sudo chmod +x notify_screenshot.sh
+./notify_screenshot.sh
+```
 
 ## Configuration
 
@@ -45,7 +46,7 @@ The following steps are required to setup the remote server to receive the scree
 
 1. Copy the `server` directory to the remote server. This directory contains the index.js file which is responsible for serving the screenshots. It also contains a `images` directory which is where the screenshots will be stored.
 2. Install the dependencies for the server by running `npm install` in the `server` directory.
-3. Start the server by running `npm start` in the `server` directory.
+3. Start the server by running `node index.js` in the `server` directory.
 4. Ensure the server is accessible from the internet. Set up apache or nginx to proxy requests to the server if necessary, or use a service like [ngrok](https://ngrok.com/) to expose the server to the internet if desired.
 
 

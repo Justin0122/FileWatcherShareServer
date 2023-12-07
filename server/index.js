@@ -14,7 +14,7 @@ app.get('/image/:imageName', (req, res) => {
     // Construct HTML with image and metadata
     const htmlContent = `
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
       <head>
         <title>s.justinjongstra.nl | ${imageName}</title>
         <link rel="icon" type="image/png" href="${faviconPath}">
@@ -25,7 +25,7 @@ app.get('/image/:imageName', (req, res) => {
         <meta name="theme-color" content="#fa5560">
       </head>
       <body>
-        <img src="${imagePath}" alt="${imageName}">
+        <img src="${imagePath}" alt="${imageName}" style="width:100%;height:auto;">
       </body>
     </html>
   `;
