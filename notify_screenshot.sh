@@ -15,6 +15,7 @@ function sync_screenshots() {
         inotifywait -m -e create --format '%f' "$local_screenshot_dir" |
         while read filename; do
             rsync -avz -e ssh "${local_screenshot_dir}/${filename}" "${remote_user}@${remote_server}:${remote_path}/images/"
+            filename="${filename// /%20}"
             echo "${remote_url}images/${filename}" | xclip -selection clipboard
         done
     else
@@ -28,6 +29,7 @@ function sync_videos() {
         inotifywait -m -e create --format '%f' "$local_video_dir" |
         while read filename; do
             rsync -avz -e ssh "${local_video_dir}/${filename}" "${remote_user}@${remote_server}:${remote_path}/videos/"
+            filename="${filename// /%20}"
             echo "${remote_url}video/${filename}" | xclip -selection clipboard
         done
     else
