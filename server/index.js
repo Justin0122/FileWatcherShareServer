@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-require ('dotenv').config();
 
 const PORT = 3003;
 
@@ -9,9 +8,6 @@ app.use('/images', express.static('images'));
 app.use('/videos', express.static('videos'));
 
 app.get('/image/:imageName', (req, res) => {
-    if (req.query.id !== process.env.ID) {
-        return res.status(400).send('Bad Request');
-    }
     const imageName = req.params.imageName;
     const imagePath = `/images/${imageName}`;
     const faviconPath = '../favicon.png';
@@ -39,9 +35,6 @@ app.get('/image/:imageName', (req, res) => {
 });
 
 app.get('/video/:videoName', (req, res) => {
-    if (req.query.id !== process.env.Video_ID) {
-        return res.status(400).send('Bad Request');
-    }
     const videoName = req.params.videoName;
     const videoPath = `/videos/${videoName}`;
     const faviconPath = '../favicon.png';
